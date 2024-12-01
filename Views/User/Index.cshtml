@@ -1,0 +1,54 @@
+﻿@model IEnumerable<User>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+</head>
+<body>
+    <h1>User List</h1>
+
+    <!-- Форма для поиска и сортировки -->
+    <form method="get">
+        <label>Name:</label>
+        <input type="text" name="name" value="@ViewContext.HttpContext.Request.Query["name"]" />
+        <label>Position:</label>
+        <input type="text" name="position" value="@ViewContext.HttpContext.Request.Query["position"]" />
+        <label>Sort by:</label>
+        <select name="sortBy">
+            <option value="">-- Select --</option>
+            <option value="Age" selected="@(ViewContext.HttpContext.Request.Query["sortBy"] == "Age" ? "selected" : "")">Age (Ascending)</option>
+            <option value="AgeDesc" selected="@(ViewContext.HttpContext.Request.Query["sortBy"] == "AgeDesc" ? "selected" : "")">Age (Descending)</option>
+            <option value="Salary" selected="@(ViewContext.HttpContext.Request.Query["sortBy"] == "Salary" ? "selected" : "")">Salary (Ascending)</option>
+            <option value="SalaryDesc" selected="@(ViewContext.HttpContext.Request.Query["sortBy"] == "SalaryDesc" ? "selected" : "")">Salary (Descending)</option>
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Таблица пользователей -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Age</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Position</td>
+                    <td>@user.Age</td>
+                    <td>@user.Salary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+
